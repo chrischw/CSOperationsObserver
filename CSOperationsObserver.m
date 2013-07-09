@@ -28,7 +28,9 @@
 
 #pragma mark - public
 
-- (CSOperationObserverItem*)observeOperation:(NSOperation*)operation identifier:(NSString*)identifier userInfo:(NSDictionary*)userInfo
+- (CSOperationObserverItem*)observeOperation:(NSOperation*)operation
+                                  identifier:(NSString*)identifier
+                                    userInfo:(NSDictionary*)userInfo
 {
     NSParameterAssert([operation isKindOfClass:[NSOperation class]]);
     NSParameterAssert([identifier isKindOfClass:[NSString class]]);
@@ -54,21 +56,28 @@
         [self.delegate operationsObserver:self didStartObservingOperationItem:item withIdentifier:identifier];
     }
     
-    [item addObserver:self forKeyPath:@"operation.isCancelled" options:NSKeyValueObservingOptionNew context:NULL];
-    [item addObserver:self forKeyPath:@"operation.isFinished" options:NSKeyValueObservingOptionNew context:NULL];
+    [item addObserver:self forKeyPath:@"operation.isCancelled"
+              options:NSKeyValueObservingOptionNew context:NULL];
+    [item addObserver:self forKeyPath:@"operation.isFinished"
+              options:NSKeyValueObservingOptionNew context:NULL];
 
     return item;
 }
 
-- (CSOperationObserverItem*)observeOperation:(NSOperation*)operation identifier:(NSString*)identifier
+- (CSOperationObserverItem*)observeOperation:(NSOperation*)operation
+                                  identifier:(NSString*)identifier
 {
     return [self observeOperation:operation identifier:identifier userInfo:@{}];
 }
 
-- (CSOperationObserverItem*)observeOperation:(NSOperation*)operation relatedToIndexPath:(NSIndexPath*)indexPath identifier:(NSString*)identifier
+- (CSOperationObserverItem*)observeOperation:(NSOperation*)operation
+                          relatedToIndexPath:(NSIndexPath*)indexPath
+                                  identifier:(NSString*)identifier
 {
     NSParameterAssert([indexPath isKindOfClass:[NSIndexPath class]]);
-    return [self observeOperation:operation identifier:identifier userInfo:@{kCSOperationObserverItemRelatedIndexPathKey:indexPath}];
+    return [self observeOperation:operation
+                       identifier:identifier
+                         userInfo:@{kCSOperationObserverItemRelatedIndexPathKey:indexPath}];
 }
 
 - (CSOperationObserverItem *)operationItemWithIdentifier:(NSString *)identifier
@@ -92,7 +101,10 @@
 
 #pragma mark - kvo
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
 {
     
     if ([self.delegate respondsToSelector:@selector(operationsObserver:didObserveCancellationOrFinishingOfOperationItem:withIdentifier:)]) {

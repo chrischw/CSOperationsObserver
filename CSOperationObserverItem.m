@@ -19,12 +19,14 @@
 
 - (NSIndexPath *)relatedIndexPath
 {
-    return [self.userInfo valueForKey:kCSOperationObserverItemRelatedIndexPathKey];
+    return [self.userInfo
+            valueForKey:kCSOperationObserverItemRelatedIndexPathKey];
 }
 
 - (void)setRelatedIndexPath:(NSIndexPath *)relatedIndexPath
 {
-    [self.userInfo setValue:relatedIndexPath forKey:kCSOperationObserverItemRelatedIndexPathKey];
+    [self.userInfo setValue:relatedIndexPath
+                     forKey:kCSOperationObserverItemRelatedIndexPathKey];
 }
 
 @end

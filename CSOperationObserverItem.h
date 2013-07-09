@@ -6,7 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString* const kCSOperationObserverItemRelatedIndexPathKey = @"kCSOperationObserverItemRelatedIndexPath";
+static NSString* const kCSOperationObserverItemRelatedIndexPathKey
+    = @"kCSOperationObserverItemRelatedIndexPath";
 
 @interface CSOperationObserverItem : NSObject
 

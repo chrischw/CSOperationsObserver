@@ -1,28 +1,33 @@
 #CSOperationsObserver
 
-CSOperationsObserver is a little helper class that wraps KVO code for registering changes of the state of NSOperations.
+CSOperationsObserver is a little helper class that wraps KVO code for 
+registering changes of the state of NSOperations.
 
 ##Example usage:
 
-- You get an NSOperation from your networking code. Your controller has a property `operationObserver`
+- You get an NSOperation from your networking code. Your controller has a property `operationsObserver`
 
   ```objc
   id relatedData = [...]
 	AFHTTPRequestOperation* operation = [...]
-	[self.operationObserver observeOperation:operation identifier:@"myJob" userInfo:@{@"relatedData":relatedData}];
+	[self.operationsObserver observeOperation:operation
+		 						  identifier:@"myJob"
+								    userInfo:@{@"relatedData":relatedData}];
   [operation start];
 	```
   
 - In the same controller, you implement methods from the `<CSOperationObserverProtocol>`
 
   ```objc
-  - (void)operationsObserver:(CSOperationObserver*)observer didObserveCancellationOrFinishingOfOperationItem:(CSOperationObserverItem*)item withIdentifier:(NSString*)identifier
+  - (void)operationsObserver:(CSOperationsObserver*)observer
+      didObserveCancellationOrFinishingOfOperationItem:(CSOperationObserverItem*)item
+              withIdentifier:(NSString*)identifier
   {
-    //Do whatever you want
-    if ([identifier isEqualToString:@"myJob"]) {
-      id relatedData = item.userInfo[@"relatedData"];
-      [...]
-    }
+	  //Do whatever you want
+	  if ([identifier isEqualToString:@"myJob"]) {
+		  id relatedData = item.userInfo[@"relatedData"];
+		  [...]
+	  }
   }
   ```
 
